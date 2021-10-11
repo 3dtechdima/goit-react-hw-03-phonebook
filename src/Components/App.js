@@ -47,6 +47,25 @@ class App extends Component {
     });
   };
 
+  componentDidMount() {
+    console.log("App componentDidMount");
+
+    const contacts = localStorage.getItem("contacts");
+    const parsedTodos = JSON.parse(contacts);
+
+    if (parsedTodos) {
+      this.setState({ contacts: parsedTodos });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("App componentDidUpdate");
+
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
     return (
       <>
